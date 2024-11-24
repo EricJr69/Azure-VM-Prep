@@ -4,7 +4,7 @@
 
 ![Banner](https://github.com/AmiliaSalva/Azure-VM-Prep/assets/132176058/5ea56352-1c7f-4f4a-a243-272f6fbd9ee5)
 
-### To kick off my Azure Honeynet project, we must first set up the virtual machines (VMs) we'll use. Virtual machines are like computers in the cloud, and they'll form the foundation of our honeynet. Here are the steps we'll take in Microsoft Azure:
+### Let's start setting up our Azure Honeynet project. First, we must create virtual machines (VMs) in Microsoft Azure. These cloud-based computers will form the core of our honeynet. Here's how we'll get started:
 
 1. **Sign in to the Azure portal:** The first step is to log into your Azure account. If you don't have an account yet, **[you'll need to create one!](https://portal.azure.com)**
 
@@ -20,7 +20,7 @@
 
   
   
-- Click on 'Create', then 'Virtual machine'. This is where we'll set up our new VM!
+- Click on 'Create,' then 'Virtual machine.' This is where we'll set up our new VM!
   
  
   ![VM create](https://github.com/AmiliaSalva/Azure-VM-Prep/assets/132176058/f8cc721b-2439-4390-9552-06a51b996918)
@@ -31,19 +31,19 @@
   <details close> 
 <summary> 3. Configure the VM settings: </summary>
   
-  - **Subscription and resource group:** We'll select our Azure subscription and resource group (Which is way to group and manage resources in Azure!). For the purpose of the project, I already created created a resource group called ```RG-Cyber-Lab2``` 
+  - **Subscription and resource group:** Select your Azure subscription and resource group. For this project, use the existing resource group ```RG-Cyber-Lab2``` 
   
-  - **Virtual Machine Name:** For the purpose of this project, I am going to name this VM, ```Lab-HoneyNet```
+  - **Virtual Machine Name:** Name your VM ```Lab-HoneyNet```
 
-  - **Region:** For the purpose of this project, I am going to choose the region, ```(US) East US 2```
+  - **Region:**  Choose the region, ```(US) East US 2```
   
-  - **Availability Options:** Being that the only purpose of this machine will be to act as a Honeypot, we do not require any form of availability, so I selected ```No infrastructure redundancy required```
+  - **Availability Options:** Select ```No infrastructure redundancy required``` since this VM will act as a honeypot.
 
   - **Image:** Select ```Windows 10 Pro, version 21H2 - x64 Gen2```
   
   ![VM create](https://github.com/AmiliaSalva/Azure-VM-Prep/assets/132176058/10525f40-6634-4cef-b519-0487d492c878)
   
-  - **Networking**: When creating the virtual network, we will be leaving it to the default settings. For the purpose of this lab, I called mine ```Lab-VNet```.
+  - **Networking**: Use the default settings for the virtual network. For this lab, name it ```Lab-VNet```.
   
   ![netowkr](https://github.com/AmiliaSalva/Azure-VM-Prep/assets/132176058/8fe63ac8-42a9-4bea-bab0-2575013c185c)
 
@@ -54,27 +54,29 @@
 <details close> 
 <summary> 4. NSG/Inbound Security Rule Configuration: </summary>
  
-  - **Navigate to the Network Security Group (NSG):** In the Azure portal, search for 'Network Security Groups' in the search bar at the top. Once there, select the NSG associated with your virtual machine.
+  - **Navigate to the Network Security Group (NSG):** In the Azure portal, search for 'Network Security Groups' in the search bar and select the NSG associated with your virtual machine.
   
   - **Create an inbound security rule:** Inside the NSG, you'll find a section for 'Inbound security rules'. This is where we control what kind of traffic is allowed to reach our VM. Click on 'Add' to create a new rule.
-  - **Configure the rule:** We'll be prompted to input some details about our new rule.
-  
-  - **Source:** This defines where the incoming traffic is coming from. We can set this to ```Any``` to allow traffic from any location.
-  
-  - **Source port ranges:** This specifies the ports on the source (the computer initiating the connection) that are allowed. Again, we can set this to ```*``` or ```Any``` to allow all ports.
 
-  - **Destination:** This defines where the traffic is going to. Since we want the traffic to reach our VM, we can set this to ```Any```.
+  - **Configure the rule:** We will be prompted to input details about the new rule. Configure the following settings:
   
-  - **Destination port ranges:** This specifies the ports on our VM that are allowed to receive traffic. We can set this to ```*``` or ```Any``` to open all ports.
+  - **Source:** Set to ```Any``` to allow traffic from any location.
   
-  - **Priority:** Setting priorities in Network Security Groups (NSGs) is an essential step. The priority determines the order in which rules are applied. Rules with lower priority numbers are processed before rules with higher priority numbers because the lower the number, the higher the priority. For the purpose of this lab, I set the priority to ```300``` to ensure that this honeypot functions as intended!
+  - **Source port ranges:** Set to ```*``` or ```Any``` to allow all ports.
 
-  - **Action:** We'll set this to ```Allow```, which means that traffic matching this rule will be allowed to reach our VM. 
+  - **Destination:** Set to ```Any```to direct traffic to your VM.
+  
+  - **Destination port ranges:** Set to ```*``` or ```Any``` to open all ports.
+  
+  - **Priority:** Set the priority to ```300``` for this lab. Note that lower-priority numbers are processed before higher-priority numbers.
+
+  - **Action:** Set to ```Allow``` to permit traffic matching this rule.
+ 
   
  ![NSG](https://github.com/AmiliaSalva/Azure-VM-Prep/assets/132176058/feb1442a-8ee7-4c78-bb98-018858b85f99)
 
   
-  - **Review & Create:** After i've input and configured all the details we need for this inbound rule, click 'Add' to create the rule. e
+  - **Review & Create:** - After configuring the rule details, click 'Add' to create the new inbound security rule.
  
  
  
@@ -88,7 +90,9 @@
 
 # Conclusion
 
-### By creating our VMs and open inbound security rules, we're essentially leaving the front door of our VM wide open. This is generally not something you'd do in a real production environment, as it would make your system extremely vulnerable to attacks. However, in the context of our honeynet, it's exactly what we want to do!
+### By creating our Virtual Machines (VMs) and opening inbound security rules, we intentionally make our system vulnerable to attacks. This is not recommended for production environments, as it poses significant security risks.
 
-### This allows us to attract potential attackers and observe their actions in a controlled environment.
+### However, in the context of our honeynet project, this setup serves a specific purpose. We're creating a decoy environment that attracts potential attackers by leaving our VM exposed.
+
+### This allows us to monitor and analyze their actions in a controlled environment.
  
